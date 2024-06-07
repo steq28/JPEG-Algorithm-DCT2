@@ -10,13 +10,18 @@ def dct2_home_made(x):
     # Calculate the cosine matrix
     cos = np.cos(np.pi * i[:, None] * (2 * i + 1) / (2 * N))
     
-    # Apply the DCT transform on rows
-    x_transformed = np.dot(cos, x)
+    # Initialize x_transformed matrix
+    x_transformed = np.zeros_like(x)
 
-    # Apply the DCT transform on columns
-    x_transformed = np.dot(x_transformed, cos.T)
+    # Calculate the DCT transform on rows
+    for m in range(N):
+        x_transformed[m] = np.sum(cos[m] * x, axis=1)
 
-    # Calculate the alpha values
+    # Calculate the DCT transform on columns
+    for n in range(N):
+        x_transformed[:, n] = np.sum(x_transformed * cos[n], axis=0)
+
+    # Calculate the Wsr values
     Wsr = np.sqrt(2/N) * np.ones(N)
     Wsr[0] = np.sqrt(1/N)
 
