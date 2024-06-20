@@ -1,33 +1,26 @@
 
 import numpy as np
 
-def dct2_home_made(x):
-    N = x.shape[0]
+def dct2_home_made(input_matrix):
+    N = input_matrix.shape[0]
+    j = np.arange(N)
+    i = j[:, None]
 
-    # Create a vector of indices
-    i = np.arange(N)
+    cos = np.cos(np.pi * i  * (2 * j + 1) / (2 * N))
 
-    # Calculate the cosine matrix
-    cos = np.cos(np.pi * i[:, None] * (2 * i + 1) / (2 * N))
-    
-    # Initialize x_transformed matrix
-    x_transformed = np.zeros_like(x)
+    input_matrix_transformed = np.zeros_like(input_matrix)
 
-    # Calculate the DCT transform on rows
     for m in range(N):
-        x_transformed[m] = np.sum(cos[m] * x, axis=1)
+        input_matrix_transformed[m] = np.sum(cos[m] * input_matrix, axis=1)
 
-    # Calculate the DCT transform on columns
     for n in range(N):
-        x_transformed[:, n] = np.sum(x_transformed * cos[n], axis=0)
+        input_matrix_transformed[:, n] = np.sum(input_matrix_transformed * cos[n], axis=0)
 
-    # Calculate the Wsr values
     Wsr = np.sqrt(2/N) * np.ones(N)
     Wsr[0] = np.sqrt(1/N)
 
     Wsr_array = Wsr[:, None] * Wsr
+
+    output_matrix = input_matrix_transformed * Wsr_array
     
-    # Calculate the final DCT-2 transform matrix
-    X = x_transformed * Wsr_array
-    
-    return X
+    return output_matrix
