@@ -34,8 +34,8 @@ Implement DCT2 as discussed in lectures and compare execution times with the fas
    - The x-axis represents the array sizes (N), while the y-axis represents the logarithm of the execution times.
 
 ### Expected Results
-- Execution times proportional to \( N^3 \) for the homemade DCT2.
-- Execution times proportional to \( N^2 \log(N) \) for the optimized version, with potential irregularities due to the algorithm used.
+- Execution times proportional to \( N<sup>3</sup> \) for the homemade DCT2.
+- Execution times proportional to \( N<sup>2</sup> \log(N) \) for the optimized version, with potential irregularities due to the algorithm used.
 
 ## Part 2: Image Compression Software
 
